@@ -1,0 +1,111 @@
+{% extends 'customer/customer_base.html' %}
+{% block content %}
+{% load static %}
+
+                <section class="home-section section-hero inner-page overlay bg-image"
+                style="background-image: url('{% static 'images/hero_1.jpg' %}');"
+                id="home-section">
+                </section>
+            <section class="site-section" id="next-section" style="margin-top: -80px;">
+                <div class="container">
+
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 mb-5 mb-lg-0">
+                            <center><h3 class="lead" style="margin-bottom: 30px;"><strong>Apply for job </h3></strong></center>
+                            <center><form id="msform" action="{% url 'customer:apply_job_save' q.job_id %}" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                            
+                                <div class="row form-group">
+                                    <div class="col-lg-4 ">
+                                        <label for="name" ><strong>FULL NAME:</strong></label>
+                                            </div>
+                                <input type="text" name="name" placeholder="FullName" required="true" autocomplete="off"/>
+                                </div>
+                                &nbsp;
+                                &nbsp;
+                                <div class="row form-group">
+                                    <div class="col-lg-4">
+                                        <label for="phone" ><strong>MOBILE NUMBER:</strong></label>
+                                            </div>
+                                <input type="text" name="phone" placeholder="Phone Number" required="true" maxlength="10" pattern="[0-9]+" autocomplete="off"/>
+                                
+                            </div>
+                            &nbsp;
+                                &nbsp;
+                                <div class="row form-group">
+                                    <div class="col-lg-4 ">
+                                        <label><strong> EMAIL: </strong></label>
+                                            </div>
+                                <input type="text" name="email" placeholder="Email" required="true" autocomplete="off"/>
+                                </div>
+                                &nbsp;
+                                &nbsp;
+                                <div class="row form-group">
+                                    <div class="col-lg-12">
+                                        <label><strong>SELECT RESUME: </strong></label>
+                                        <input type="file" name="file1" placeholder="UPLOAD CV: " id="file1">
+                                    </div>
+                                </div>
+                            
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-success">SUBMIT</button>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="display:none;" id="progress_div">
+                                    <div class="progress">
+                                            <div class="progress-bar" id="progress_bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <p id="progress_text"></p>
+                                </div>
+
+                            </form></center>
+                            <script>
+                                function myFunction() {
+                                    alert("Sure you want to Apply?");
+                                }
+
+                                function onFormSubmit(event) {
+                                    event.preventDefault();
+
+                                    var formData=new FormData();
+                                    formData.append("name",document.getElementById("name").value);
+                                    formData.append("phone",document.getElementById("phone").value);
+                                    formData.append("email",document.getElementById("email").value);
+                                    formData.append("file1",document.getElementById("file1").files[0]);
+                                    
+
+                                    console.log(formData);
+
+                                    var xhr=new XMLHttpRequest();
+                                    xhr.open("POST","http://127.0.0.1:1738/customer/apply_job_save",true);
+                                    xhr.upload.addEventListener("progress",function (ev) {
+                                    if(ev.lengthComputable){
+                                            var percentage=(ev.loaded/ev.total*100|0);
+                                        document.getElementById("progress_div").style["display"]="block";
+                                        document.getElementById("progress_bar").style["width"]=""+percentage+"%";
+                                        document.getElementById("progress_bar").innerHTML=""+percentage+"%";
+                                        document.getElementById("progress_text").innerHTML="Uploaded : "+parseInt(ev.loaded/1000000)+"/"+parseInt(ev.total/1000000)+" MB";
+                                        console.log("Uploaded : "+ev.loaded);
+                                        console.log("TOTAL : "+ev.total);
+
+                                        console.log(percentage)
+                                    }
+                                    });
+                                    xhr.send(formData);
+
+                                }
+                            </script>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </section>
+
+
+{% endblock %}

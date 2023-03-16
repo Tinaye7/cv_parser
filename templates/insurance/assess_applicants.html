@@ -1,0 +1,87 @@
+{% extends 'insurance/admin_base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<section class="home-section section-hero inner-page overlay bg-image"
+style="background-image: url('{% static 'images/hero_1.jpg' %}');"
+id="home-section">
+</section>
+ 
+ 
+  <style media="screen">
+    input[type=text], select,input[type=number] ,input[type=password], textarea{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+    input[type=submit] {
+    width: 22.4%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+
+
+   label #sidebar_btn {
+      z-index: 1;
+      color: #fff;
+      position: fixed;
+      cursor: pointer;
+      left: 300px;
+      padding-left: 60px;
+      margin-top:15px;
+      font-size: 20px;
+      
+      transition: 0.5s;
+      transition-property: color;
+    }
+    .left_area{
+      margin-top:8px;
+    }
+  </style>
+
+
+</head>
+
+<br><br>
+{%for jobs in claims %}
+<h2 style="text-align:center;"><u>REPLY {{jobs.name|upper}}</u></h2>
+{% endfor %}
+<div>
+  <form method="post" autocomplete="off" enctype="multipart/form-data" style="margin-left:200px;margin-right:200px;">
+        {% csrf_token %}
+      
+        
+        <label for="status"><strong>Status</strong></label>
+        {% render_field ClaimsForm.status class="form-control" placeholder="Status"  %}
+        <label for="remarks"><strong>Remarks</strong></label>
+        {% render_field ClaimsForm.remarks class="form-control" placeholder="Remarks"  %}
+         <br><br>
+         
+        
+<br><br>
+<p class="lead" style="text-align: center;" >
+<input class="btn btn-success btn-lg" type="submit" value="Save" >
+
+
+</p>
+  </form>
+</div>
+
+
+{% endblock content %}

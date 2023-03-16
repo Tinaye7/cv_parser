@@ -1,0 +1,140 @@
+{% extends 'insurance/admin_base.html' %}
+{% load static %}
+
+
+{% block content %}
+<head>
+  <link href="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i,800" rel="stylesheet">
+  <!-- Bootstrap CSS
+  ============================================ -->
+  <link rel="stylesheet" href="C:/Users/Tinaye/Videos/insurance_management/templates/insurance/css/bootstrap.min.css">
+  <!-- Bootstrap CSS
+  ============================================ -->
+  <link rel="stylesheet" href="C:/Users/Tinaye/Videos/insurance_management/templates/insurance/css/font-awesome.min.css">
+  <!-- adminpro icon CSS
+  ============================================ -->
+  <link rel="stylesheet" href="C:/Users/Tinaye/Videos/insurance_management/templates/insurance/css/adminpro-custon-icon.css">
+  <!-- meanmenu icon CSS
+  ============================================ -->
+  <link rel="stylesheet" href="C:/Users/Tinaye/Videos/insurance_management/templates/insurance/css/meanmenu.min.css">
+  <!-- mCustomScrollbar CSS
+  ============================================ -->
+  <link rel="stylesheet" href="C:/Users/Tinaye/Videos/insurance_management/templates/insurance/css/jquery.mCustomScrollbar.min.css">
+  <!-- animate CSS
+  ============================================ -->
+  <link rel="stylesheet" href="C:/Users/Tinaye/Videos/insurance_management/templates/insurance/css/animate.css">
+  <!-- jvectormap CSS
+  ============================================ -->
+  <link rel="stylesheet" href="C:/Users/Tinaye/Videos/insurance_management/templates/insurance/css/jvectormap/jquery-jvectormap-2.0.3.css">
+  <!-- normalize CSS
+  ============================================ -->
+  <link rel="stylesheet" href="C:/Users/Tinaye/Videos/insurance_management/templates/insurance/css/data-table/bootstrap-table.css">
+  <link rel="stylesheet" href="C:/Users/Tinaye/Videos/insurance_management/templates/insurance/css/data-table/bootstrap-editable.css">
+  <!-- normalize CSS
+  ============================================ -->
+  <link rel="stylesheet" href="C:/Users/Tinaye/Videos/insurance_management/templates/insurance/css/normalize.css">
+  <!-- charts CSS
+  ============================================ -->
+  <link rel="stylesheet" href="C:/Users/Tinaye/Videos/insurance_management/templates/insurance/css/c3.min.css">
+  <!-- style CSS
+  ============================================ -->
+  <link rel="stylesheet" href="C:/Users/Tinaye/Videos/insurance_management/templates/insurance/style2.css">
+  <!-- responsive CSS
+  ============================================ -->
+  <link rel="stylesheet" href="C:/Users/Tinaye/Videos/insurance_management/templates/insurance/css/responsive.css">
+  <!-- modernizr JS
+  ============================================ -->
+  <script src="C:/Users/Tinaye/Videos/insurance_management/templates/insurance/js/vendor/modernizr-2.8.3.min.js"></script>
+
+<!-- bootstrap theme-->
+
+<!-- font awesome -->
+
+<!-- custom css -->
+<link rel="stylesheet" href="C:/Users/Tinaye/Videos/insurance_management/templates/insurance/custom/css/custom.css">
+
+<!-- DataTables -->
+<link rel="stylesheet" href="C:/Users/Tinaye/Videos/insurance_management/templates/insurance/assests/plugins/datatables/jquery.dataTables.min.css">
+
+<!-- file input -->
+<link rel="stylesheet" href="C:/Users/Tinaye/Videos/insurance_management/templates/insurance/assests/plugins/fileinput/css/fileinput.min.css">
+
+<!-- jquery -->
+<script src="C:/Users/Tinaye/Videos/insurance_management/templates/insurance/assests/jquery/jquery.min.js"></script>
+<!-- jquery ui -->  
+<link rel="stylesheet" href="C:/Users/Tinaye/Videos/insurance_management/templates/insurance/assests/jquery-ui/jquery-ui.min.css">
+<script src="C:/Users/Tinaye/Videos/insurance_management/templates/insurance/assests/jquery-ui/jquery-ui.min.js"></script>
+
+ 
+</head>
+<section class="home-section section-hero inner-page overlay bg-image"
+style="background-image: url('{% static 'images/hero_1.jpg' %}');"
+id="home-section">
+</section>
+<div class="panel-heading">
+  <h3 class="text-center">All VACANCIES</h3>
+</div>
+<section class="site-section" style="margin-top: -80px;">
+            <table class="table table-hover table-striped table-bordered" id="dev-table">
+          <thead class="thead-dark">
+            <tr>
+            <th>#</th>
+              <th>Job ID</th>
+              <th>Title</th>
+              <th>Employement status</th>
+              <th> Vacancy</th>
+              <th>Category</th>
+              <th>Description</th>
+              <th>Responsibilities</th>
+              <th>Job Location</th>
+              <th>Experience</th>
+              <th>Salary</th>
+              <th>Application Deadline</th>
+              <th>Date of Publication</th>
+              <th>View Applicants</th>
+            </tr>
+          </thead>  
+          {% for jobs in joblisting %}
+          
+        
+          <tr>
+            <td> {{ forloop.counter }}</td>
+            <td> {{jobs.job_id}}</td>
+            <td>{{jobs.title}}</td>
+            <td>{{jobs.employment_status}}</td>
+            <td>{{jobs.vacancy}}</td>
+            <td>{{jobs.category}}</td>
+            <td>{{jobs.description}}</td>
+            <td>{{jobs.responsibilities}}</td>
+            <td>{{jobs.job_location}}</td>
+            <td>{{jobs.experience}}</td>
+            <td>{{jobs.salary}}</td>
+            <td id="date">{{jobs.application_deadline}}</td>
+            <td id="date">{{jobs.published_on}}</td>
+            
+          <td><a class="btn btn-success btn-sm" href="{% url 'assess_job' jobs.job_id %}"><span class="fa fa-edit"></span></a></td>
+            
+          </tr>
+          
+          {% endfor %} 
+        </table>
+    
+    
+     
+          <script>
+            var today = new Date();
+            var dd=String(today.getDate()).padStart(2,'0');
+            var mm= String(today.getMonth()+ 1).padStart(2,'0');
+            var yyyy=today.getFullYear();
+            today= mm+ '/'+dd+'/'+yyyy;
+            document.getElementById("date").innerHTML=today;
+          </script>
+</section>
+
+{% endblock content %}
